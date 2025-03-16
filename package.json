@@ -1,0 +1,21 @@
+{
+  "name": "finalwebproject",
+  "version": "1.0.0",
+  "description": "I want to make a website that allows users to keep an updated version of all their game libraries, be it steam, gog, epic, etc. and be able to acesss it all from one site. If possible I want users to also be able to launch their games from the browser, which should at least be possible with steam, can you give me ideas, and a basic starting point with directions on how i can continue to develop this",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start --prefix backend\" \"npm run dev --prefix frontend\"",
+    "install-all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "mongoose": "^8.12.1",
+    "steamgriddb": "^2.2.0"
+  }
+}

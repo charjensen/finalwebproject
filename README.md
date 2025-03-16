@@ -1,0 +1,3 @@
+I want to make a website that allows users to keep an updated version of all their game libraries, be it steam, gog, epic, etc. and be able to acesss it all from one site. If possible I want users to also be able to launch their games from the browser, which should at least be possible with steam, can you give me ideas, and a basic starting point with directions on how i can continue to develop this
+
+So far I have made the front end and back end skeletons, with basic front end using React and an express backend to handle api calls and routing

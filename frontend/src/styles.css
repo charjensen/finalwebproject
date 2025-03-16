@@ -1,0 +1,33 @@
+input.form-control {
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+select.form-select {
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.btn-outline-primary {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
