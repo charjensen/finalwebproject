@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 
 const gameSchema = new mongoose.Schema({
-    appid: Number,
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    appid: { type: Number, required: true },
     name: String,
-    playtime: { type: Number, default: 0 },
+    playtime: Number,
     logoUrl: String,
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    isMultiplayer: Boolean,
+    completed: { type: Boolean, default: false } // ✅ New field
 });
 
-const Game = mongoose.model('Game', gameSchema);
-
-export default Game;
+export default mongoose.model('Game', gameSchema);

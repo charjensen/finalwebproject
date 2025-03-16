@@ -11,11 +11,18 @@ export default function Navbar({ user, onLogout, onLogin }) {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto">
             {user && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/library">
-                  My Library
-                </Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/library">
+                    My Library
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/settings">
+                    Settings
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
           <div className="d-flex align-items-center gap-2">

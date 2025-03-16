@@ -14,6 +14,9 @@ import "./config/steamAuth.js";
 
 import authRoutes from "./routes/auth.js";
 import steamRoutes from "./routes/steam.js";
+import recommendationRoute from './routes/recommendation.js';
+import settingsRoutes from './routes/settings.js';
+import libraryRoutes from './routes/library.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -34,6 +37,9 @@ app.use(passport.session());
 
 app.use("/auth", authRoutes);
 app.use("/api/steam", steamRoutes);
+app.use('/api/recommendation', recommendationRoute);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/steam/library', libraryRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is working!");

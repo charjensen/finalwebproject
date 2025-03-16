@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    steamId: { type: String, unique: true },
+    steamId: { type: String, required: true, unique: true },
     displayName: String,
-    profileImage: { type: String, default: '/placeholder-profile.png' } // Fallback for missing image
+    avatar: String,
+    settings: {
+        defaultSort: { type: String, default: 'playtime' },
+        showMultiplayer: { type: Boolean, default: true },
+        showShortPlaytime: { type: Boolean, default: false },
+        platforms: { type: [String], default: ['steam'] }
+    }
 });
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+export default mongoose.model('User', userSchema);

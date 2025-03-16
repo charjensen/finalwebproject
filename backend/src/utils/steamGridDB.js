@@ -66,10 +66,10 @@ export const getGameLogoFromSteamGridDB = async (appid, name) => {
             return selectedLogo?.url || null;
         }
 
-        console.log(`❌ No logo match found on SteamGridDB for ${name}`);
+        console.log(`No logo match found on SteamGridDB for ${name}`);
         return null;
     } catch (err) {
-        console.error(`🚨 SteamGridDB error for ${name}:`, err.message);
+        console.error(`SteamGridDB error for ${name}:`, err.message);
         return null;
     }
 };

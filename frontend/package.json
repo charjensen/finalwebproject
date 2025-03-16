@@ -17,6 +17,7 @@
     "axios": "^1.8.2",
     "bootstrap": "^5.3.3",
     "passport-steam": "^1.0.18",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0"

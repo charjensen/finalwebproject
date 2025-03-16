@@ -1,18 +1,34 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Library from "./pages/Library";
+import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
-import ProfilePicture from "./components/ProfilePicture";
+import RecommendedGamesList from "./components/RecommendedGamesList";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(false); // ✅ Track loading state
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/profile", { withCredentials: true })
       .then((res) => setUser(res.data))
       .catch((err) => console.error(err));
+
+    // ✅ Start loading before fetching recommendations
+    setLoading(true);
+
+    axios
+      .get("http://localhost:5000/api/recommendation", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setRecommendations(res.data);
+      })
+      .catch((err) => console.error("No recommendations available"))
+      .finally(() => setLoading(false)); // ✅ Stop loading after response
   }, []);
 
   const handleLogin = () => {
@@ -27,21 +43,28 @@ function App() {
     <Router>
       <Navbar user={user} onLogin={handleLogin} onLogout={handleLogout} />
 
-      <div className="container mt-4">
+      <div className="container mt-4 d-flex flex-column align-items-center">
         <Routes>
           <Route
             path="/"
             element={
               <div className="text-center">
-                <h1 className="mb-4">Welcome to the Game Library</h1>
+                <h1>Game Library</h1>
                 {user ? (
                   <>
-                    <ProfilePicture
-                      src={user.profileImage}
-                      alt="Profile"
-                      size={80}
-                    />
-                    <p className="lead">Hi, {user.displayName}!</p>
+                    <p>Welcome, {user.displayName}!</p>
+
+                    {/* ✅ Show loading indicator */}
+                    {loading ? (
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    ) : (
+                      <RecommendedGamesList games={recommendations} />
+                    )}
                   </>
                 ) : (
                   <button className="btn btn-success" onClick={handleLogin}>
@@ -52,6 +75,7 @@ function App() {
             }
           />
           <Route path="/library" element={<Library />} />
+          <Route path="/settings" element={<Settings user={user} />} />
         </Routes>
       </div>
     </Router>
