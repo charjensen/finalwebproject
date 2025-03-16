@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { memo } from "react";
 
-export default function GameCard({ game, onComplete }) {
+const GameCard = memo(({ game, onComplete }) => {
   if (!game) return null;
 
   const [isCompleted, setIsCompleted] = useState(game.completed);
 
-  const handleComplete = async () => {
+  //  Use useCallback to prevent function recreation on every render
+  const handleComplete = useCallback(async () => {
     try {
       const res = await axios.post(
         `/api/steam/library/complete/${game.appid}`,
@@ -17,7 +19,7 @@ export default function GameCard({ game, onComplete }) {
 
       console.log("Game marked as completed:", res.data.message);
 
-      // ✅ Update state directly after success
+      //  Update state directly after success
       setIsCompleted(true);
       onComplete(game.appid);
     } catch (err) {
@@ -27,7 +29,7 @@ export default function GameCard({ game, onComplete }) {
         console.error("Network error:", err);
       }
     }
-  };
+  }, [game.appid, onComplete]); //  Stable reference for this function
 
   return (
     <div
@@ -38,17 +40,18 @@ export default function GameCard({ game, onComplete }) {
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center", // ✅ Center vertically
-        alignItems: "center", // ✅ Center horizontally
+        justifyContent: "center",
+        alignItems: "center",
         textAlign: "center",
         borderRadius: "12px",
         padding: "10px",
       }}
     >
-      {/* ✅ Game Logo */}
+      {/*  Game Logo */}
       <img
         src={game.logoUrl || "/placeholder.png"}
         alt={game.name}
+        loading="lazy" //  Lazy load
         style={{
           width: "150px",
           height: "150px",
@@ -58,15 +61,15 @@ export default function GameCard({ game, onComplete }) {
         }}
       />
 
-      {/* ✅ Game Name */}
+      {/*  Game Name */}
       <h6 style={{ fontSize: "14px", marginBottom: "5px" }}>{game.name}</h6>
 
-      {/* ✅ Playtime */}
+      {/*  Playtime */}
       <p style={{ fontSize: "12px", marginBottom: "5px" }}>
         Playtime: {(game.playtime / 60).toFixed(1)} hrs
       </p>
 
-      {/* ✅ Play Now Button */}
+      {/*  Play Now Button */}
       <a
         href={`steam://rungameid/${game.appid}`}
         className="btn btn-primary"
@@ -80,7 +83,7 @@ export default function GameCard({ game, onComplete }) {
         Play Now
       </a>
 
-      {/* ✅ Completion Button */}
+      {/*  Completion Button */}
       {isCompleted ? (
         <button className="btn btn-secondary mt-2" disabled>
           Completed
@@ -92,7 +95,7 @@ export default function GameCard({ game, onComplete }) {
       )}
     </div>
   );
-}
+});
 
 GameCard.propTypes = {
   game: PropTypes.shape({
@@ -103,3 +106,5 @@ GameCard.propTypes = {
   }),
   onComplete: PropTypes.func.isRequired,
 };
+
+export default GameCard;

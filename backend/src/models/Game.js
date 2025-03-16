@@ -7,7 +7,7 @@ const gameSchema = new mongoose.Schema({
     playtime: Number,
     logoUrl: String,
     isMultiplayer: Boolean,
-    completed: { type: Boolean, default: false } // ✅ New field
+    completed: { type: Boolean, default: false } //  New field
 });
 
 export default mongoose.model('Game', gameSchema);

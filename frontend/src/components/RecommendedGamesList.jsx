@@ -10,7 +10,7 @@ export default function RecommendedGamesList({ games }) {
         className="d-flex flex-wrap gap-3"
         style={{
           justifyContent: "center",
-          alignItems: "flex-start", // ✅ Prevents Flexbox height stretching
+          alignItems: "flex-start", //  Prevents Flexbox height stretching
           maxWidth: "1000px",
         }}
       >

@@ -9,7 +9,7 @@ export default function RecommendedGame({ game }) {
       style={{
         width: "200px",
         height: "300px",
-        overflow: "hidden", // ✅ Prevents content from leaking
+        overflow: "hidden", //  Prevents content from leaking
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -39,14 +39,14 @@ export default function RecommendedGame({ game }) {
         </p>
       </div>
 
-      {/* ✅ Fix button size and alignment */}
+      {/*  Fix button size and alignment */}
       <a
         href={`steam://rungameid/${game.appid}`}
         className="btn btn-primary"
         style={{
-          width: "100%", // ✅ Make button match the card width
-          borderRadius: "0 0 12px 12px", // ✅ Match button with card border
-          padding: "8px 0", // ✅ Consistent height
+          width: "100%", //  Make button match the card width
+          borderRadius: "0 0 12px 12px", //  Match button with card border
+          padding: "8px 0", //  Consistent height
           fontSize: "14px",
           position: "absolute",
           bottom: 0,

@@ -11,7 +11,7 @@ export const SettingsProvider = ({ children }) => {
   const [showShortPlaytime, setShowShortPlaytime] = useState(false);
   const [platforms, setPlatforms] = useState(["steam"]);
 
-  // ✅ Fetch settings from backend
+  //  Fetch settings from backend
   useEffect(() => {
     const fetchSettings = async () => {
       try {
@@ -30,7 +30,7 @@ export const SettingsProvider = ({ children }) => {
     fetchSettings();
   }, []);
 
-  // ✅ Save settings to backend
+  //  Save settings to backend
   const updateSettings = async (newSettings) => {
     try {
       await axios.post("/api/settings", newSettings, { withCredentials: true });

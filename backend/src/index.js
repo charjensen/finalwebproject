@@ -6,6 +6,7 @@ import express from "express";
 import cors from "cors";
 import passport from "passport";
 import session from "express-session";
+import compression from 'compression';
 
 import connectDB from "./config/database.js";
 connectDB();
@@ -20,6 +21,8 @@ import libraryRoutes from './routes/library.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+app.use(compression());
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());

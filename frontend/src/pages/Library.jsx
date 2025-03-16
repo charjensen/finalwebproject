@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useLibrary } from "../context/LibraryContext";
 import GameCard from "../components/GameCard";
 import SortControls from "../components/SortControls";
 import { useSettings } from "../context/SettingsContext";
+import { useCallback } from "react"; //
 
 export default function Library() {
-  const [games, setGames] = useState([]);
+  const { games, setGames, loading } = useLibrary();
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
 
-  // ✅ Load default settings from context
+  //  Load default settings from context
   const {
     defaultSort,
     setDefaultSort,
@@ -18,19 +20,22 @@ export default function Library() {
     platforms,
   } = useSettings();
 
-  // ✅ Allow temporary override of sorting without resetting default
+  //  Allow temporary override of sorting without resetting default
   const [sortBy, setSortBy] = useState(defaultSort);
   const [sortOrder, setSortOrder] = useState("desc");
 
-  const handleGameCompleted = (appid) => {
-    setGames((prevGames) =>
-      prevGames.map((game) =>
-        game.appid === appid ? { ...game, completed: true } : game
-      )
-    );
-  };
+  const handleGameCompleted = useCallback(
+    (appid) => {
+      setGames((prevGames) =>
+        prevGames.map((game) =>
+          game.appid === appid ? { ...game, completed: true } : game
+        )
+      );
+    },
+    [setGames]
+  );
 
-  // ✅ Fetch games from backend
+  //  Fetch games from backend
   useEffect(() => {
     const fetchGames = async () => {
       try {
@@ -64,7 +69,7 @@ export default function Library() {
     platforms,
   ]);
 
-  // ✅ Handle sorting locally (if necessary)
+  //  Handle sorting locally (if necessary)
   const sortedGames = [...games].sort((a, b) => {
     if (sortBy === "playtime") {
       return sortOrder === "asc"
@@ -77,23 +82,23 @@ export default function Library() {
     }
   });
 
-  // ✅ Handle search locally
+  //  Handle search locally
   const searchedGames = sortedGames.filter((game) =>
     game.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // ✅ Handle additional frontend-based filtering (optional)
+  //  Handle additional frontend-based filtering (optional)
   const filteredGames = searchedGames.filter((game) => {
-    // ✅ Platform Filtering (in case backend filtering fails)
+    //  Platform Filtering (in case backend filtering fails)
     if (!platforms.includes("steam")) return false;
 
-    // ✅ Multiplayer Filtering
+    //  Multiplayer Filtering
     if (!showMultiplayer && game.isMultiplayer) return false;
 
-    // ✅ Short Playtime Filtering
+    //  Short Playtime Filtering
     if (showShortPlaytime && game.playtime > 60) return false;
 
-    // ✅ Playtime-based Filtering
+    //  Playtime-based Filtering
     if (filter === "all") return true;
     if (filter === "low" && game.playtime <= 10 * 60) return true;
     if (
@@ -107,16 +112,18 @@ export default function Library() {
     return false;
   });
 
-  // ✅ Sync sorting with settings context (without forcing it)
+  //  Sync sorting with settings context (without forcing it)
   useEffect(() => {
     setSortBy(defaultSort);
   }, [defaultSort]);
+
+  if (loading) return <p>Loading games...</p>;
 
   return (
     <div className="container mt-4">
       <h1 className="mb-4">My Steam Library</h1>
 
-      {/* ✅ Search Input */}
+      {/*  Search Input */}
       <div className="mb-3">
         <input
           type="text"
@@ -127,7 +134,7 @@ export default function Library() {
         />
       </div>
 
-      {/* ✅ Filter Options */}
+      {/*  Filter Options */}
       <div className="mb-4">
         <select
           className="form-select"
@@ -141,7 +148,7 @@ export default function Library() {
         </select>
       </div>
 
-      {/* ✅ Sort Controls */}
+      {/*  Sort Controls */}
       <SortControls
         sortBy={sortBy}
         sortOrder={sortOrder}
@@ -152,7 +159,7 @@ export default function Library() {
         onSortOrderChange={setSortOrder}
       />
 
-      {/* ✅ Game List */}
+      {/*  Game List */}
       <div className="row justify-content-center">
         {filteredGames.map((game) => (
           <GameCard

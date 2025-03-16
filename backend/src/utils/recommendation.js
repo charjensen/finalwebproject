@@ -10,7 +10,7 @@ export const getTopRecommendedGames = async (userGames) => {
         .slice(0, 20); // Limit to 20 games
 
     for (const game of filteredGames) {
-        console.log(`🔍 Searching for game on IGDB: ${game.name}`);
+        console.log(` Searching for game on IGDB: ${game.name}`);
 
         const igdbData = await searchGameOnIGDB(game.name);
 

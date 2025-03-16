@@ -26,7 +26,7 @@ export default function Settings() {
     <div className="container mt-4">
       <h1>Settings</h1>
 
-      {/* ✅ Dark Mode */}
+      {/*  Dark Mode */}
       <div className="form-check mb-3">
         <input
           type="checkbox"
@@ -37,7 +37,7 @@ export default function Settings() {
         <label className="form-check-label">Enable Dark Mode</label>
       </div>
 
-      {/* ✅ Multiplayer */}
+      {/*  Multiplayer */}
       <div className="form-check mb-3">
         <input
           type="checkbox"
@@ -48,7 +48,7 @@ export default function Settings() {
         <label className="form-check-label">Show Multiplayer Games</label>
       </div>
 
-      {/* ✅ Short Playtime */}
+      {/*  Short Playtime */}
       <div className="form-check mb-3">
         <input
           type="checkbox"

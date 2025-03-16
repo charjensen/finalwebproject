@@ -3,7 +3,7 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
-// ✅ Get user settings
+//  Get user settings
 router.get('/', async (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).json({ message: 'Not authenticated' });
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// ✅ Update user settings
+//  Update user settings
 router.post('/', async (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).json({ message: 'Not authenticated' });
