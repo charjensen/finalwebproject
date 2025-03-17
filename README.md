@@ -38,7 +38,7 @@ A web-based app that consolidates a user's Steam library into one place, providi
 ### 1. **Clone the repository**
 
 ```sh
-git clone https://github.com/your-username/game-library-manager.git
+git clone https://github.com/charjensen/game-library-manager.git
 cd game-library-manager
 ```
 
